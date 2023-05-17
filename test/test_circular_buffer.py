@@ -1,4 +1,5 @@
 import pytest
+from src.circular_buffer import CircularBuffer
 
 def test_is_empty():
     buffer_size = 5
