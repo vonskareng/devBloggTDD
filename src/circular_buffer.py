@@ -7,8 +7,11 @@ class CircularBuffer():
     def is_empty(self):
         return len(self.circular_buffer) == 0
     
+    def is_full(self):
+        return len(self.circular_buffer) == self.buffer_size
     
     def enqueue(self, item):
-        self.circular_buffer = ["first Item"]
+        self.circular_buffer.append(item)
 
-
+    def dequeue(self):
+        self.circular_buffer = []
