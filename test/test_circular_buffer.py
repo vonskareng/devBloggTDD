@@ -101,3 +101,26 @@ def test_dequeue_returns_none_if_empty():
     expected = None
     assert actual == expected
 
+def test_dequeue_on_multiple_items():
+    buffer_size = 3
+    circular_buffer = CircularBuffer(buffer_size)
+    item_one = 1
+    item_two = 2
+    item_three = 3
+    circular_buffer.enqueue(item_one)
+    circular_buffer.enqueue(item_two)
+    circular_buffer.enqueue(item_three)
+    actual_one = circular_buffer.dequeue()
+    expected_one = 1
+    assert actual_one == expected_one
+    actual_two = circular_buffer.dequeue()
+    expected_two = 2
+    assert actual_two == expected_two
+    actual_three = circular_buffer.dequeue()
+    expected_three = 3
+    assert actual_three == expected_three
+    actual_four = circular_buffer.dequeue()
+    expected_four = None
+    assert actual_four == expected_four
+
+
