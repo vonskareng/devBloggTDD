@@ -14,7 +14,7 @@ class CircularBuffer():
         self.circular_buffer.append(item)
 
     def dequeue(self):
-        return self.circular_buffer.pop()
+        return self.circular_buffer.pop(0)
 
     def size(self):
         return len(self.circular_buffer)
