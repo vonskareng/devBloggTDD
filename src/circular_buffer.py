@@ -16,5 +16,5 @@ class CircularBuffer():
     def dequeue(self):
         self.circular_buffer = []
 
-    def size():
-        pass
+    def size(self):
+        return 0
