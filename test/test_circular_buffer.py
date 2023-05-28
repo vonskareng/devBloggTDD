@@ -70,3 +70,15 @@ def test_size_with_one_item():
     actual_size = circular_buffer.size()
     expected = 1
     assert actual_size == expected
+
+def test_size_with_two_added_items_one_removed():
+    buffer_size = 2 
+    circular_buffer = CircularBuffer(buffer_size)
+    item_one = "an awesome item"
+    item_two = "an even more awesome item"
+    circular_buffer.enqueue(item_one)
+    circular_buffer.enqueue(item_two)
+    circular_buffer.dequeue()
+    actual_size = circular_buffer.size()
+    expected = 1
+    assert actual_size == expected
