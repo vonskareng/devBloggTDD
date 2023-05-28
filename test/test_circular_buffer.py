@@ -54,3 +54,10 @@ def test_is_full_returns_false_for_items_removed():
     expected = False
     actual = circular_buffer.is_full()
     assert actual == expected
+
+def test_size_init():
+    buffer_size = 2
+    circular_buffer = CircularBuffer(buffer_size)
+    actual_size = circular_buffer.size()
+    expected = 0
+    assert actual_size == expected
