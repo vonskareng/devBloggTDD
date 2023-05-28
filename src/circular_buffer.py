@@ -17,4 +17,4 @@ class CircularBuffer():
         self.circular_buffer = []
 
     def size(self):
-        return 0
+        return len(self.circular_buffer)
