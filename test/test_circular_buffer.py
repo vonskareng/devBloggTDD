@@ -94,3 +94,10 @@ def test_dequeue_returns_oldest_item():
     expected = "an awesome item"
     assert oldest_item == expected
 
+def test_dequeue_returns_none_if_empty():
+    buffer_size = 3
+    circular_buffer = CircularBuffer(buffer_size)
+    actual = circular_buffer.dequeue()
+    expected = None
+    assert actual == expected
+
