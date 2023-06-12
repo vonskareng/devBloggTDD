@@ -123,4 +123,16 @@ def test_dequeue_on_multiple_items():
     expected_four = None
     assert actual_four == expected_four
 
+def test_enqueue_on_full_buffer():
+    buffer_size = 2 
+    circular_buffer = CircularBuffer(buffer_size)
+    item_one = 1
+    item_two = 2 
+    item_three = 3
+    circular_buffer.enqueue(item_one)
+    circular_buffer.enqueue(item_two)
+    circular_buffer.enqueue(item_three)
+    actual = circular_buffer.dequeue()
+    expected = 3
+    assert actual == expected
 
