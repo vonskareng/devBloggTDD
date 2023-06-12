@@ -11,8 +11,6 @@ class CircularBuffer():
         return len(self.circular_buffer) == self.buffer_size
     
     def enqueue(self, item):
-        if self.is_full():
-            self.circular_buffer[0] = item
         self.circular_buffer.append(item)
 
     def dequeue(self):
