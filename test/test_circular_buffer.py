@@ -37,10 +37,8 @@ def test_is_full_returns_false_when_initialized():
 def test_is_full_returns_true():
     buffer_size = 3 
     circular_buffer = CircularBuffer(buffer_size)
-    item = "an awesome item"
-    circular_buffer.enqueue(item)
-    circular_buffer.enqueue(item)
-    circular_buffer.enqueue(item)
+    for i in range(3):
+        circular_buffer.enqueue("an awesome item")
     expected = True
     actual = circular_buffer.is_full()
     assert actual == expected
@@ -48,8 +46,7 @@ def test_is_full_returns_true():
 def test_is_full_returns_false_for_items_removed():
     buffer_size = 1
     circular_buffer = CircularBuffer(buffer_size)
-    item = "an awesome item"
-    circular_buffer.enqueue(item)
+    circular_buffer.enqueue("an awesome item")
     circular_buffer.dequeue()
     expected = False
     actual = circular_buffer.is_full()
@@ -65,8 +62,7 @@ def test_size_init():
 def test_size_with_one_item():
     buffer_size = 2 
     circular_buffer = CircularBuffer(buffer_size)
-    item = "an awesome item"
-    circular_buffer.enqueue(item)
+    circular_buffer.enqueue("an awesome item")
     actual_size = circular_buffer.size()
     expected = 1
     assert actual_size == expected
@@ -74,10 +70,8 @@ def test_size_with_one_item():
 def test_size_with_two_added_items_one_removed():
     buffer_size = 2 
     circular_buffer = CircularBuffer(buffer_size)
-    item_one = "an awesome item"
-    item_two = "an even more awesome item"
-    circular_buffer.enqueue(item_one)
-    circular_buffer.enqueue(item_two)
+    for i in range(2):
+        circular_buffer.enqueue("an awesome item")
     circular_buffer.dequeue()
     actual_size = circular_buffer.size()
     expected = 1
@@ -104,35 +98,19 @@ def test_dequeue_returns_none_if_empty():
 def test_dequeue_on_multiple_items():
     buffer_size = 3
     circular_buffer = CircularBuffer(buffer_size)
-    item_one = 1
-    item_two = 2
-    item_three = 3
-    circular_buffer.enqueue(item_one)
-    circular_buffer.enqueue(item_two)
-    circular_buffer.enqueue(item_three)
-    actual_one = circular_buffer.dequeue()
-    expected_one = 1
-    assert actual_one == expected_one
-    actual_two = circular_buffer.dequeue()
-    expected_two = 2
-    assert actual_two == expected_two
-    actual_three = circular_buffer.dequeue()
-    expected_three = 3
-    assert actual_three == expected_three
-    actual_four = circular_buffer.dequeue()
-    expected_four = None
-    assert actual_four == expected_four
+    for i in range(3):
+        circular_buffer.enqueue(i)
+    for i in range(3):
+       assert circular_buffer.dequeue() == i
 
 def test_enqueue_on_full_buffer():
     buffer_size = 2 
     circular_buffer = CircularBuffer(buffer_size)
-    item_one = 1
-    item_two = 2 
-    item_three = 3
-    circular_buffer.enqueue(item_one)
-    circular_buffer.enqueue(item_two)
-    circular_buffer.enqueue(item_three)
+    for i in range(3):
+        circular_buffer.enqueue(i)
     actual = circular_buffer.dequeue()
-    expected = 3
+    expected = 1
     assert actual == expected
-
+    actual = circular_buffer.dequeue()
+    expected = 2
+    assert actual == expected
