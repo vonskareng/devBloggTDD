@@ -1,32 +1,34 @@
 class CircularBuffer():
-    def __init__(self, buffer_size):
-        self.buffer_size = buffer_size
-        self.circular_buffer = []
-        self.oldest = None
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.circular_buffer = [None] * capacity
+        self.reader = 0
+        self.writer = 0
+        self.size = 0
 
     def is_empty(self):
-        return len(self.circular_buffer) == 0
-    
+        return self.size == 0
+
     def is_full(self):
-        return len(self.circular_buffer) == self.buffer_size
+        return self.size == self.capacity
 
     def enqueue(self, item):
-        if self.is_empty():
-            self.oldest = 0
-            self.circular_buffer.append(item)
-        elif self.is_full():
-            self.circular_buffer[self.oldest] = item
-            self.oldest += 1
+        if self.is_full():
+            self.circular_buffer[self.reader] = item
+            self.reader = (self.reader + 1) % self.capacity
         else:
-            self.circular_buffer.append(item)
+            self.circular_buffer[self.writer] = item
+            self.writer = (self.writer + 1) % self.capacity
+            self.size += 1
 
     def dequeue(self):
         if self.is_empty():
             return None
-        removed = self.circular_buffer.pop(self.oldest)
-        if self.oldest > 0:
-            self.oldest -= 1
-        return removed
-        
-    def size(self):
-        return len(self.circular_buffer)
+        item = self.circular_buffer[self.reader]
+        self.circular_buffer[self.reader] = None
+        self.reader = (self.reader + 1) % self.capacity
+        self.size -= 1
+        return item
+
+    def buffer_length(self):
+        return self.size

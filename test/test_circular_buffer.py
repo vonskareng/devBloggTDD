@@ -35,7 +35,7 @@ def test_is_full_returns_false_when_initialized():
     assert actual == expected
 
 def test_is_full_returns_true():
-    buffer_size = 3 
+    buffer_size = 3
     circular_buffer = CircularBuffer(buffer_size)
     for i in range(3):
         circular_buffer.enqueue("an awesome item")
@@ -55,25 +55,25 @@ def test_is_full_returns_false_for_items_removed():
 def test_size_init():
     buffer_size = 2
     circular_buffer = CircularBuffer(buffer_size)
-    actual_size = circular_buffer.size()
+    actual_size = circular_buffer.buffer_length()
     expected = 0
     assert actual_size == expected
 
 def test_size_with_one_item():
-    buffer_size = 2 
+    buffer_size = 2
     circular_buffer = CircularBuffer(buffer_size)
     circular_buffer.enqueue("an awesome item")
-    actual_size = circular_buffer.size()
+    actual_size = circular_buffer.buffer_length()
     expected = 1
     assert actual_size == expected
 
 def test_size_with_two_added_items_one_removed():
-    buffer_size = 2 
+    buffer_size = 2
     circular_buffer = CircularBuffer(buffer_size)
     for i in range(2):
         circular_buffer.enqueue("an awesome item")
     circular_buffer.dequeue()
-    actual_size = circular_buffer.size()
+    actual_size = circular_buffer.buffer_length()
     expected = 1
     assert actual_size == expected
 
@@ -103,8 +103,8 @@ def test_dequeue_on_multiple_items():
     for i in range(3):
        assert circular_buffer.dequeue() == i
 
-def test_enqueue_on_full_buffer():
-    buffer_size = 2 
+def test_one_iteration_full_buffer():
+    buffer_size = 2
     circular_buffer = CircularBuffer(buffer_size)
     for i in range(3):
         circular_buffer.enqueue(i)
@@ -114,3 +114,14 @@ def test_enqueue_on_full_buffer():
     actual = circular_buffer.dequeue()
     expected = 2
     assert actual == expected
+
+def test_enqueue_on_full_buffer():
+    buffer_size = 3
+    circular_bufffer = CircularBuffer(buffer_size)
+    for i in range(10):
+        circular_bufffer.enqueue(i)
+    expected = [7,8,9]
+    actual = [circular_bufffer.dequeue() for _ in range(buffer_size)]
+    assert actual == expected
+
+
